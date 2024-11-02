@@ -1,0 +1,96 @@
+import java.util.Arrays;
+import java.util.Random;
+
+public class ModularJavaProgram {
+
+    public static void main(String[] args) {
+        int[] vetor = criarVetor();
+        imprimirVetor(vetor);
+        
+        bubbleSort(vetor);
+        imprimirVetorOrdenado(vetor);
+        
+        int menor = obterMenorValor(vetor);
+        int maior = obterMaiorValor(vetor);
+        System.out.println("Menor valor: " + menor);
+        System.out.println("Maior valor: " + maior);
+        
+        double mediana = obterMediana(vetor);
+        System.out.println("Mediana: " + mediana);
+        
+        imprimirFrequencias(vetor);
+        
+        int[] vetorSemRepetidos = removerRepetidos(vetor);
+        imprimirVetorSemRepetidos(vetorSemRepetidos);
+    }
+
+    public static int[] criarVetor() {
+        int[] vetor = new int[50];
+        Random random = new Random();
+        for (int i = 0; i < vetor.length; i++) {
+            vetor[i] = random.nextInt(10) + 1;
+        }
+        return vetor;
+    }
+    
+    public static void imprimirVetor(int[] vetor) {
+        System.out.println("Vetor original: " + Arrays.toString(vetor));
+    }
+
+    public static void bubbleSort(int[] vetor) {
+        int n = vetor.length;
+        boolean trocado;
+        for (int i = 0; i < n - 1; i++) {
+            trocado = false;
+            for (int j = 0; j < n - i - 1; j++) {
+                if (vetor[j] > vetor[j + 1]) {
+                    int temp = vetor[j];
+                    vetor[j] = vetor[j + 1];
+                    vetor[j + 1] = temp;
+                    trocado = true;
+                }
+            }
+            if (!trocado) break;
+        }
+    }
+    
+    public static void imprimirVetorOrdenado(int[] vetor) {
+        System.out.println("Vetor ordenado: " + Arrays.toString(vetor));
+    }
+
+    public static int obterMenorValor(int[] vetor) {
+        return vetor[0];
+    }
+
+    public static int obterMaiorValor(int[] vetor) {
+        return vetor[vetor.length - 1];
+    }
+
+    public static double obterMediana(int[] vetor) {
+        int meio = vetor.length / 2;
+        if (vetor.length % 2 == 0) {
+            return (vetor[meio - 1] + vetor[meio]) / 2.0;
+        } else {
+            return vetor[meio];
+        }
+    }
+
+    public static void imprimirFrequencias(int[] vetor) {
+        int[] frequencias = new int[11];
+        for (int valor : vetor) {
+            frequencias[valor]++;
+        }
+        System.out.println("Frequência dos valores no vetor:");
+        for (int i = 1; i < frequencias.length; i++) {
+            System.out.println(i + " aparece " + frequencias[i] + " vezes");
+        }
+    }
+
+    public static int[] removerRepetidos(int[] vetor) {
+        return Arrays.stream(vetor).distinct().toArray();
+    }
+
+    public static void imprimirVetorSemRepetidos(int[] vetor) {
+        System.out.println("Vetor sem valores repetidos: " + Arrays.toString(vetor));
+    }
+}
